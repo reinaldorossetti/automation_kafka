@@ -13,6 +13,8 @@ public class ProducerAvroUser {
         String generateKey = String.valueOf(Math.random());
         Producer<String, UserAvro> producer = new KafkaProducer<>(propertiesProducerAvro());
         producer.send(new ProducerRecord<String, UserAvro>(topic, generateKey, message));
+        producer.flush();
+        producer.close();
         System.out.println("Enviando para o topico a messangem:" + message.toString());
     }
 }

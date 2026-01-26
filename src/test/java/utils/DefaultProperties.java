@@ -13,6 +13,11 @@ public class DefaultProperties {
     // Lendo arquivo yml
     private static Properties dados = ReadYml.lerArquivoYml("dados");
 
+    static {
+        // Disable automatic ConfigProviders per Kafka 3.8 CVE guidance
+        System.setProperty("org.apache.kafka.automatic.config.providers", "none");
+    }
+
     public static Properties propertiesProducer() {
         Properties properties = new Properties();
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, dados.getProperty("host"));
@@ -25,6 +30,7 @@ public class DefaultProperties {
         Properties properties = new Properties();
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, dados.getProperty("host"));
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, topic);
+        properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         return properties;
@@ -45,6 +51,7 @@ public class DefaultProperties {
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, dados.getProperty("host"));
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, topic);
         properties.setProperty("schema.registry.url", "http://localhost:8081");
+        properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class.getName());
         return properties;
