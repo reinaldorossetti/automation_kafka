@@ -16,7 +16,7 @@ public class User {
   private String email = "bruno@gmail.com";
 
   @Builder.Default
-  private Integer age = 31;
+  private Float age = 31.0F;
 
   @Override
   public String toString() {
