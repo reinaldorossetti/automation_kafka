@@ -47,7 +47,7 @@ public class KafkaTest {
                 .setAge(String.valueOf(faker.number().numberBetween(18, 80)))
                 .build();
 
-        // Enviando uma mensagem pro tópico "topic_user" com o valor "{"nome": "bruno","email": "bruno@gmail.com","age": "31" }"
+        // Enviando uma mensagem pro tópico "topic_user" com o valor do faker
         ProducerAvroUser.sendMessageTopic("topic_user", avroMessage);
 
         // Consumindo uma mensagem do tópico e validando se esta correto
