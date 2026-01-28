@@ -37,9 +37,6 @@ public class KafkaTest {
 
     @Test
     public void enviandoMensagemParaOTopicoComSucessoComAvro(){
-        // Lendo arquivo yml
-        Properties dados = ReadYml.lerArquivoYml("dados");
-
         // setando valores pro objeto UserAvro
         UserAvro avroMessage = UserAvro.newBuilder()
                 .setNome(faker.name().fullName())
@@ -56,8 +53,6 @@ public class KafkaTest {
 
     @Test
     public void enviandoMensagemParaOTopicoComFalhaComAvro(){
-        // Lendo arquivo yml
-        Properties dados = ReadYml.lerArquivoYml("dados");
 
         // setando valores pro objeto UserAvro
         UserAvro avroMessage = UserAvro.newBuilder()
